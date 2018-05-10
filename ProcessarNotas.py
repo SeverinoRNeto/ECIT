@@ -76,7 +76,7 @@ notaSociologia = 0.0
 notaFilosofia = 0.0
 
 
-nomeArquivo = 'testeStandard.csv'
+nomeArquivo = 'quiz-Simulado2AMsi-standard.csv'
 
 arquivo = open(nomeArquivo, 'r')
 leitor = csv.DictReader(arquivo)
@@ -143,4 +143,4 @@ for linha in leitor:
 
     alunos.append(tuple([sala, matricula, primeiroNome, ultimoNome,notaLinguaPortuguesa, notaLinguaEspanhola, notaLinguaInglesa, notaEducacaoFisica, notaArtes, notaBiologia, notaQuimica, notaFisica, notaMatematica, notaHistoria, notaGeografia, notaSociologia, notaFilosofia]))
 
-transformaExcel(alunos, 'primeiroAno')
+transformaExcel(alunos, '2AnoA-MSI')

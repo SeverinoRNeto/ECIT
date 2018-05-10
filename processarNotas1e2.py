@@ -3,26 +3,34 @@ from fpdf import FPDF
 import os
 import xlsxwriter
 from tempfile import TemporaryFile
+arquivos=[]
+#arquivos=['quiz-Simulado3AAgro-standard', 'quiz-Simulado3AMsi-standard', 'quiz-Simulado3BMsi-standard']
+#arquivos = ['quiz-Simulado2AAGRO-standard', 'quiz-Simulado2AMsi-standard', 'quiz-Simulado2BAGRO-standard','quiz-Simulado2BMsi-standard', 'quiz-Simulado2CMSI-standard']
+#excelNome= 'Simulado3AAgro'
+#nomeArquivo = 'quiz-Simulado3AAgro-standard.csv'
+
 
 def transformaExcel(valores, nomeArquivo):
     workbook = xlsxwriter.Workbook(nomeArquivo +'.xlsx')
+    bold = workbook.add_format({'bold':True})
     worksheet = workbook.add_worksheet(valores[0][0])
     #Preenche Cabeçalho do arquivo    
-    worksheet.write('A1', 'Matricula')
-    worksheet.write('B1', 'Nome')
-    worksheet.write('C1', 'Nota Lingua Portuguesa')
-    worksheet.write('D1', 'Nota Lingua Espanhola')
-    worksheet.write('E1', 'Nota Lingua Inglesa')
-    worksheet.write('F1', 'Nota Educação Fisica')
-    worksheet.write('G1', 'Nota Artes')
-    worksheet.write('H1', 'Nota Biologia')
-    worksheet.write('I1', 'Nota Quimica')
-    worksheet.write('J1', 'Nota Fisica')
-    worksheet.write('K1', 'Nota Matematica')
-    worksheet.write('L1', 'Nota Historia')
-    worksheet.write('M1', 'Nota Geografia')
-    worksheet.write('N1', 'Nota Sociologia')
-    worksheet.write('O1', 'Nota Filosofia')
+    worksheet.write('A1', 'Matricula', bold)
+    worksheet.write('B1', 'Nome', bold)
+    worksheet.write('C1', 'Ling.Port', bold)
+    worksheet.write('D1', 'Ling.Esp', bold)
+    worksheet.write('E1', 'Ling.Ing', bold)
+    worksheet.write('F1', 'Ed.Fisica',bold)
+    worksheet.write('G1', 'Arte', bold)
+    worksheet.write('H1', 'Biologia', bold)
+    worksheet.write('I1', 'Quimica', bold)
+    worksheet.write('J1', 'Fisica', bold)
+    worksheet.write('K1', 'Matematica', bold)
+    worksheet.write('L1', 'Historia', bold)
+    worksheet.write('M1', 'Geografia', bold)
+    worksheet.write('N1', 'Sociologia', bold)
+    worksheet.write('O1', 'Filosofia', bold)
+    worksheet.write('P1', 'Sala', bold)
     row = 2
     col = 0
     #[sala, matricula, primeiroNome, ultimoNome,notaLinguaPortuguesa, notaLinguaEspanhola, notaLinguaInglesa, notaEducacaoFisica, notaArtes, notaBiologia, notaQuimica, notaFisica, notaMatematica, notaHistoria, notaGeografia, notaSociologia, notaFilosofia]
@@ -46,76 +54,64 @@ def transformaExcel(valores, nomeArquivo):
         row += 1  
     workbook.close()
 
+for nomeArquivo in arquivos:
+    #NotasDisciplinas
+    notaLinguaPortuguesa = 0.0
+    notaLinguaEspanhola = 0.0
+    notaLinguaInglesa = 0.0
+    notaEducacaoFisica = 0.0
+    notaArtes = 0.0
+    notaBiologia = 0.0
+    notaQuimica = 0.0
+    notaFisica = 0.0
+    notaMatematica = 0.0
+    notaHistoria = 0.0
+    notaGeografia = 0.0
+    notaSociologia = 0.0
+    notaFilosofia = 0.0
 
-# Limites das Disciplinas
-linguaPortuguesa = 6
-linguaEspanhola = 11
-linguaInglesa = 16
-educacaoFisica = 21
-artes = 26
-biologia = 31
-quimica = 36
-fisica = 41
-matematica = 46
-historia = 51
-geografia = 56
-sociologia = 61
-filosofia = 66
-#NotasDisciplinas
-notaLinguaPortuguesa = 0.0
-notaLinguaEspanhola = 0.0
-notaLinguaInglesa = 0.0
-notaEducacaoFisica = 0.0
-notaArtes = 0.0
-notaBiologia = 0.0
-notaQuimica = 0.0
-notaFisica = 0.0
-notaMatematica = 0.0
-notaHistoria = 0.0
-notaGeografia = 0.0
-notaSociologia = 0.0
-notaFilosofia = 0.0
+    #Preencher com o nome do arquivo csv
+    nota = 0
+    alunos = []
+    try:
+        arquivo = open(nomeArquivo + '.csv', 'r')
+        leitor = csv.DictReader(arquivo)
+    except:
+        print("Error! " )
 
+    for linha in leitor:
+        sala = linha['Class']
+        matricula = linha['ZipGrade ID']
+        primeiroNome = linha['First Name']
+        ultimoNome = linha['Last Name']
 
-nomeArquivo = 'testeStandard.csv'
-
-arquivo = open(nomeArquivo, 'r')
-leitor = csv.DictReader(arquivo)
-nota = 0
-alunos = []
-for linha in leitor:
-    sala = linha['Class']
-    matricula = linha['ZipGrade ID']
-    primeiroNome = linha['First Name']
-    ultimoNome = linha['Last Name']
-
-    # Lingua Portuguesa
-    notaLinguaPortuguesa = float(linha['Q1']) + float(linha['Q2']) + float(linha['Q3']) + float(linha['Q4']) + float(linha['Q5'])
-    # Lingua Espanhola
-    notaLinguaEspanhola = float(linha['Q6']) + float(linha['Q7']) + float(linha['Q8']) + float(linha['Q9']) + float(linha['Q10'])
-    # Lingua inglesa
-    notaLinguaInglesa = float(linha['Q11']) + float(linha['Q12']) + float(linha['Q13']) + float(linha['Q14']) + float(linha['Q15'])
-    # Educação Fisica
-    notaEducacaoFisica = float(linha['Q16']) + float(linha['Q17']) + float(linha['Q18']) + float(linha['Q19']) + float(linha['Q20'])
-    # Artes
-    notaArtes = float(linha['Q21']) + float(linha['Q22']) + float(linha['Q23']) + float(linha['Q24']) + float(linha['Q25'])
-    # Biologia
-    notaBiologia = float(linha['Q26']) + float(linha['Q27']) + float(linha['Q28']) + float(linha['Q29']) + float(linha['Q30'])
-    # Quimica
-    notaQuimica = float(linha['Q31']) + float(linha['Q32']) + float(linha['Q33']) + float(linha['Q34']) + float(linha['Q35'])
-    # Fisica
-    notaFisica = float(linha['Q36']) + float(linha['Q37']) + float(linha['Q38']) + float(linha['Q39']) + float(linha['Q40'])
-    # Matematica
-    notaMatematica = float(linha['Q41']) + float(linha['Q42']) + float(linha['Q43']) + float(linha['Q44']) + float(linha['Q45'])
-    # Historia
-    notaHistoria = float(linha['Q46']) + float(linha['Q47']) + float(linha['Q48']) + float(linha['Q49']) + float(linha['Q50'])
-    # Geografia
-    notaGeografia = float(linha['Q51']) + float(linha['Q52']) + float(linha['Q53']) + float(linha['Q54']) + float(linha['Q55'])
-    # Sociologia
-    notaSociologia = float(linha['Q56']) + float(linha['Q57']) + float(linha['Q58']) + float(linha['Q59']) + float(linha['Q60'])
-    # Filosofia
-    notaFilosofia = float(linha['Q61']) + float(linha['Q62']) + float(linha['Q63']) + float(linha['Q64']) + float(linha['Q65'])
-    #Salvando Alunos na lista
-    alunos.append(tuple([sala, matricula, primeiroNome, ultimoNome,notaLinguaPortuguesa, notaLinguaEspanhola, notaLinguaInglesa, notaEducacaoFisica, notaArtes, notaBiologia, notaQuimica, notaFisica, notaMatematica, notaHistoria, notaGeografia, notaSociologia, notaFilosofia]))
-
-transformaExcel(alunos, 'testeAno')
+        # Lingua Portuguesa
+        notaLinguaPortuguesa = (float(linha['Q1'])*2) + (float(linha['Q2'])*2) + (float(linha['Q3'])*2) + (float(linha['Q4'])*2) + (float(linha['Q5'])*2)
+        # Lingua Espanhola
+        notaLinguaEspanhola = (float(linha['Q6'])*2) + (float(linha['Q7'])*2) + (float(linha['Q8'])*2) + (float(linha['Q9'])*2) + (float(linha['Q10'])*2)
+        # Lingua inglesa
+        notaLinguaInglesa = (float(linha['Q11'])*2) + (float(linha['Q12'])*2) + (float(linha['Q13'])*2) + (float(linha['Q14'])*2) + (float(linha['Q15'])*2)
+        # Educação Fisica
+        notaEducacaoFisica = (float(linha['Q16'])*2) + (float(linha['Q17'])*2) + (float(linha['Q18'])*2) + (float(linha['Q19'])*2) + (float(linha['Q20'])*2)
+        # Artes
+        notaArtes = (float(linha['Q21'])*2) + (float(linha['Q22'])*2) + (float(linha['Q23'])*2) + (float(linha['Q24'])*2) + (float(linha['Q25'])*2)
+        # Biologia
+        notaBiologia = (float(linha['Q26'])*2) + (float(linha['Q27'])*2) + (float(linha['Q28'])*2) + (float(linha['Q29'])*2) + (float(linha['Q30'])*2)
+        # Quimica
+        notaQuimica = (float(linha['Q31'])*2) + (float(linha['Q32'])*2) + (float(linha['Q33'])*2) + (float(linha['Q34'])*2) + (float(linha['Q35'])*2)
+        # Fisica
+        notaFisica = (float(linha['Q36'])*2) + (float(linha['Q37'])*2) + (float(linha['Q38'])*2) + (float(linha['Q39'])*2) + (float(linha['Q40'])*2)
+        # Matematica
+        notaMatematica = (float(linha['Q41'])*2) + (float(linha['Q42'])*2) + (float(linha['Q43'])*2) + (float(linha['Q44'])*2) + (float(linha['Q45'])*2)
+        # Historia
+        notaHistoria = (float(linha['Q46'])*2) + (float(linha['Q47'])*2) + (float(linha['Q48'])*2) + (float(linha['Q49'])*2) + (float(linha['Q50'])*2)
+        # Geografia
+        notaGeografia = (float(linha['Q51'])*2) + (float(linha['Q52'])*2) + (float(linha['Q53'])*2) + (float(linha['Q54'])*2) + (float(linha['Q55'])*2)
+        # Sociologia/Filosofia no terceiro
+        notaSociologia = (float(linha['Q56'])*2) + (float(linha['Q57'])*2) + (float(linha['Q58'])*2) + (float(linha['Q59'])*2) + (float(linha['Q60'])*2)
+        # Filosofia/Sociologia no terceiro
+        notaFilosofia = (float(linha['Q61'])*2) + (float(linha['Q62'])*2) + (float(linha['Q63'])*2) + (float(linha['Q64'])*2) + (float(linha['Q65'])*2)
+        #Salvando Alunos na lista
+        alunos.append(tuple([sala, matricula, primeiroNome, ultimoNome,notaLinguaPortuguesa, notaLinguaEspanhola, notaLinguaInglesa, notaEducacaoFisica, notaArtes, notaBiologia, notaQuimica, notaFisica, notaMatematica, notaHistoria, notaGeografia, notaSociologia, notaFilosofia]))
+    arquivo.close()
+    transformaExcel(alunos, nomeArquivo)
