@@ -3,8 +3,8 @@ from fpdf import FPDF
 import os
 import xlsxwriter
 from tempfile import TemporaryFile
-arquivos=['quiz-Simulado1AAgro-standard','quiz-Simulado1BAgro-standard','quiz-Simulado1CAgro-standard','quiz-Simulado1BMsi2-standard','quiz-Simulado1AMsi-standard','quiz-Simulado1CMsi-standard']
-#arquivos=['quiz-Simulado3AAgro-standard', 'quiz-Simulado3AMsi-standard', 'quiz-Simulado3BMsi-standard']
+#arquivos=['quiz-Simulado1AAgro-standard','quiz-Simulado1BAgro-standard','quiz-Simulado1CAgro-standard','quiz-Simulado1BMsi2-standard','quiz-Simulado1AMsi-standard','quiz-Simulado1CMsi-standard']
+arquivos=['quiz-Simulado3AAgro-standard', 'quiz-Simulado3AMsi-standard', 'quiz-Simulado3BMsi-standard']
 #arquivos = ['quiz-Simulado2AAGRO-standard', 'quiz-Simulado2AMsi-standard', 'quiz-Simulado2BAGRO-standard','quiz-Simulado2BMsi-standard', 'quiz-Simulado2CMSI-standard']
 #excelNome= 'Simulado3AAgro'
 #nomeArquivo = 'quiz-Simulado3AAgro-standard.csv'
@@ -86,9 +86,9 @@ for nomeArquivo in arquivos:
         ultimoNome = linha['Last Name']
 
         # Lingua Portuguesa
-        notaLinguaPortuguesa = (float(linha['Q1'])*2) + (float(linha['Q2'])*2) + (1*2) + (float(linha['Q4'])*2) + (float(linha['Q5'])*2)
+        notaLinguaPortuguesa = (float(linha['Q1'])*2) + (float(linha['Q2'])*2) + (float(linha['Q2'])*2) + (float(linha['Q4'])*2) + (float(linha['Q5'])*2)
         # Lingua Espanhola
-        notaLinguaEspanhola = (float(linha['Q6'])*2) + (float(linha['Q7'])*2) + (float(linha['Q8'])*2) + (float(linha['Q9'])*2) + (float(linha['Q10'])*2)
+        notaLinguaEspanhola = (float(linha['Q6'])*2) + (float(linha['Q7'])*2) + (1*2) + (float(linha['Q9'])*2) + (float(linha['Q10'])*2)
         # Lingua inglesa
         notaLinguaInglesa = (float(linha['Q11'])*2) + (float(linha['Q12'])*2) + (float(linha['Q13'])*2) + (float(linha['Q14'])*2) + (float(linha['Q15'])*2)
         # Educação Fisica
@@ -108,9 +108,9 @@ for nomeArquivo in arquivos:
         # Geografia
         notaGeografia = (float(linha['Q51'])*2) + (float(linha['Q52'])*2) + (float(linha['Q53'])*2) + (float(linha['Q54'])*2) + (float(linha['Q55'])*2)
         # Sociologia/Filosofia no terceiro
-        notaSociologia = (float(linha['Q56'])*2) + (float(linha['Q57'])*2) + (float(linha['Q58'])*2) + (float(linha['Q59'])*2) + (float(linha['Q60'])*2)
+        notaFilosofia = (float(linha['Q56'])*2) + (float(linha['Q57'])*2) + (float(linha['Q58'])*2) + (float(linha['Q59'])*2) + (float(linha['Q60'])*2)
         # Filosofia/Sociologia no terceiro
-        notaFilosofia = (float(linha['Q61'])*2) + (float(linha['Q62'])*2) + (float(linha['Q63'])*2) + (float(linha['Q64'])*2) + (float(linha['Q65'])*2)
+        notaSociologia = (float(linha['Q61'])*2) + (float(linha['Q62'])*2) + (float(linha['Q63'])*2) + (float(linha['Q64'])*2) + (float(linha['Q65'])*2)
         #Salvando Alunos na lista
         alunos.append(tuple([sala, matricula, primeiroNome, ultimoNome,notaLinguaPortuguesa, notaLinguaEspanhola, notaLinguaInglesa, notaEducacaoFisica, notaArtes, notaBiologia, notaQuimica, notaFisica, notaMatematica, notaHistoria, notaGeografia, notaSociologia, notaFilosofia]))
     arquivo.close()
