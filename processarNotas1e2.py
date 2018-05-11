@@ -3,7 +3,7 @@ from fpdf import FPDF
 import os
 import xlsxwriter
 from tempfile import TemporaryFile
-arquivos=[]
+arquivos=['quiz-Simulado1AAgro-standard','quiz-Simulado1BAgro-standard','quiz-Simulado1CAgro-standard','quiz-Simulado1BMsi2-standard','quiz-Simulado1AMsi-standard','quiz-Simulado1CMsi-standard']
 #arquivos=['quiz-Simulado3AAgro-standard', 'quiz-Simulado3AMsi-standard', 'quiz-Simulado3BMsi-standard']
 #arquivos = ['quiz-Simulado2AAGRO-standard', 'quiz-Simulado2AMsi-standard', 'quiz-Simulado2BAGRO-standard','quiz-Simulado2BMsi-standard', 'quiz-Simulado2CMSI-standard']
 #excelNome= 'Simulado3AAgro'
@@ -86,7 +86,7 @@ for nomeArquivo in arquivos:
         ultimoNome = linha['Last Name']
 
         # Lingua Portuguesa
-        notaLinguaPortuguesa = (float(linha['Q1'])*2) + (float(linha['Q2'])*2) + (float(linha['Q3'])*2) + (float(linha['Q4'])*2) + (float(linha['Q5'])*2)
+        notaLinguaPortuguesa = (float(linha['Q1'])*2) + (float(linha['Q2'])*2) + (1*2) + (float(linha['Q4'])*2) + (float(linha['Q5'])*2)
         # Lingua Espanhola
         notaLinguaEspanhola = (float(linha['Q6'])*2) + (float(linha['Q7'])*2) + (float(linha['Q8'])*2) + (float(linha['Q9'])*2) + (float(linha['Q10'])*2)
         # Lingua inglesa
